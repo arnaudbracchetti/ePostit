@@ -7,8 +7,11 @@
     <offline-allowed/>
   </information>
   <resources>
+    <jfx:javafx-runtime version="8.0+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Postit.jar" size="5663" download="eager" />
+    <jar href="Postit.jar" size="6600" download="eager" />
     <jar href="lib/jssc.jar" size="153562" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Postit" >

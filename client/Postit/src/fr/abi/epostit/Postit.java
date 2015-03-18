@@ -6,6 +6,7 @@
 package fr.abi.epostit;
 
 
+import fr.abi.epostit.serial.PostitSerial;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,13 +24,13 @@ import jssc.SerialPortEvent;
  */
 public class Postit extends Application {
     
-    private SerialPort sPort;
+    
     
     @Override
     public void start(Stage stage) throws Exception {
         
-        serial();  
-        
+      
+        PostitSerial serial = new PostitSerial("COM4");  // TODO gerer correctement le nom du port à ouvrir
         
         Pane root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
         
@@ -52,36 +53,7 @@ public class Postit extends Application {
     launch(args);
     }
     
-    private void serial()
-    {
-        String[] ports = SerialPortList.getPortNames();
-        sPort = new SerialPort("COM4");
-        
-        try {
-        sPort.openPort();    
-        sPort.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-        sPort.addEventListener(e-> {this.TheEventHandler(e);});
-        
-        }
-        catch(SerialPortException e)
-        {
-            System.out.println(e.getMethodName()+" : "+ e.getExceptionType());
-        } 
-    }
     
-    private void TheEventHandler(SerialPortEvent e)
-    {
-        try 
-        {
-            if (e.isRXCHAR())
-            {
-                System.out.println(sPort.readString());
-            }
-        
-        }
-        catch(SerialPortException exp)
-        {
-            System.out.println(exp.getMethodName()+" : "+ exp.getExceptionType());
-        } 
-    }
+    
+    
 }

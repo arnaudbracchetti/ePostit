@@ -8,12 +8,12 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Postit.jar" size="5323" download="eager" />
+    <jar href="Postit.jar" size="5663" download="eager" />
     <jar href="lib/jssc.jar" size="153562" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Postit" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="postit.Postit"  name="Postit" />
+  <jfx:javafx-desc  width="800" height="600" main-class="fr.abi.epostit.Postit"  name="Postit" />
   <update check="always"/>
 </jnlp>

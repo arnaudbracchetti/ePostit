@@ -16,6 +16,7 @@ import jssc.SerialPortException;
 public class PostitSerial {
     
     private SerialPort sPort;
+    private StringBuffer hardwareMessage = new StringBuffer(10);
     
     public PostitSerial(String portName)
     {
@@ -48,7 +49,7 @@ public class PostitSerial {
         {
             if (evt.isRXCHAR())
             {
-                System.out.println(sPort.readString());
+                hardwareMessage.append(sPort.readString()); 
             }
         
         }
@@ -56,6 +57,11 @@ public class PostitSerial {
         {
             System.out.println(e.getMethodName()+" : "+ e.getExceptionType());
         } 
+    }
+    
+    private void analyseHardwareMessage()
+    {
+        
     }
     
 }

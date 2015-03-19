@@ -7,16 +7,14 @@ package fr.abi.epostit;
 
 
 import fr.abi.epostit.serial.PostitSerial;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import jssc.SerialPort;
-import jssc.SerialPortException;
-import jssc.SerialPortList;
-import jssc.SerialPortEvent;
+
 
 /**
  *
@@ -47,10 +45,20 @@ public class Postit extends Application {
      */
     public static void main(String[] args) {
         
-       
+    String message = "<1:12,3>";
+    
+    Pattern pattern = Pattern.compile("<(\\d+):((\\d+),?)+>");
+    Matcher matcher = pattern.matcher(message);
+    matcher.find();
+    
+    for(int i=0;i<matcher.groupCount();i++)
+    {
+        System.out.println("toto");
+        System.out.println(matcher.group(i));
+    }
       
         
-    launch(args);
+    //launch(args);
     }
     
     

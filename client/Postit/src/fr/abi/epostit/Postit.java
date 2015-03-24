@@ -13,10 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import jssc.SerialPort;
-import jssc.SerialPortException;
-import jssc.SerialPortList;
-import jssc.SerialPortEvent;
+
 
 /**
  *

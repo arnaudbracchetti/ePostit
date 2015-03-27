@@ -5,6 +5,9 @@
  */
 package fr.abi.epostit;
 
+import fr.abi.epostit.serial.InternalKanban;
+import fr.abi.epostit.serial.PostitSerial;
+import fr.abi.epostit.serial.SerialMessage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +36,8 @@ public class FXMLMainController implements Initializable {
     
 
     private VBox col[];
+    private PostitSerial serial;
+    private SerialMessage message;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -44,6 +49,9 @@ public class FXMLMainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try{
         
+            message = new SerialMessage();
+            serial = new PostitSerial("COM4", this::fillKanban);
+            
             Pane postit = FXMLLoader.load(getClass().getResource("FXMLPostit.fxml"));
             Col1.getChildren().add(postit);
             postit = FXMLLoader.load(getClass().getResource("FXMLPostit.fxml"));
@@ -53,6 +61,11 @@ public class FXMLMainController implements Initializable {
         {
         
         }
+    }
+    
+    private void fillKanban(InternalKanban kanban)
+    {
+        
     }
     
 }

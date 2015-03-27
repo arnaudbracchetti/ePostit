@@ -27,8 +27,7 @@ public class Postit extends Application {
     public void start(Stage stage) throws Exception {
         
       
-        PostitSerial serial = new PostitSerial("COM4");  // TODO gerer correctement le nom du port à ouvrir
-        
+              
         Pane root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
         
         

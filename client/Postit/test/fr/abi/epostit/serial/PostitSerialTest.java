@@ -5,6 +5,12 @@
  */
 package fr.abi.epostit.serial;
 
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortException;
+import mockit.Expectations;
+import mockit.Mocked;
+import static org.hamcrest.Matchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,26 +27,24 @@ public class PostitSerialTest {
     public PostitSerialTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
+    boolean toTest = false;
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testEventHandler(@Mocked final SerialPortEvent serialPortEventMocked,
+                                 @Mocked final SerialPort serialPortMocked) throws SerialPortException {
+        
+        new Expectations() {{
+           serialPortEventMocked.isRXCHAR(); result = true;
+           serialPortMocked.readString(); result = "<1:1,3,5;2:2,4,6>";
+           serialPortMocked.openPort();
+        }};
+        
+        
+        toTest = false;
+        PostitSerial instance = new PostitSerial("COM4", (kanban)->{toTest = true;});
+        instance.postitSerialEventHandler(serialPortEventMocked);
+        
+        assertThat(toTest, is(true));
     }
     
 }

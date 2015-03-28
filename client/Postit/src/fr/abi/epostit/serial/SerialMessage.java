@@ -26,8 +26,9 @@ public class SerialMessage {
      * Zone de construction des messages
      */
     private StringBuffer tempMsg = new StringBuffer(20);
+    private InternalKanban kanban= new InternalKanban();
     
-    private Map<String, List> kanban = new HashMap<String, List>();
+        
     
     private final Pattern MessagePattern = Pattern.compile("<.*?>");
     private final Pattern ColumnPattern = Pattern.compile("(\\d+):((\\d+,?)*);?");
@@ -96,22 +97,21 @@ public class SerialMessage {
      */
     private void interpretMsg(String msg) 
     {
+        
         Matcher matcher = ColumnPattern.matcher(msg);
+        kanban.clear();
         
         while(matcher.find())
         {
             String colName = matcher.group(1);
             String colContentStr = matcher.group(2);
             Matcher matcherColContent = ColumncontentPattern.matcher(colContentStr);
-            List<Integer> colContentLst = new ArrayList();
             
             while(matcherColContent.find())
             {
-                //Integer postitNum = matcherColContent.groupCount();
-                colContentLst.add(Integer.parseInt(matcherColContent.group(1)));
-                
+                Integer postitId = Integer.parseInt(matcherColContent.group(1));
+                kanban.addPostit(colName, postitId);
             }
-            kanban.put(colName, colContentLst);
         }
     }
 
@@ -119,14 +119,10 @@ public class SerialMessage {
         return new String(tempMsg);
     }
     
-    public List getColumnContent(String colName)
+    public InternalKanban getKanban()
     {
-        return kanban.get(colName);
-    }        
-            
-    public Set<String> getColumnsName()
-    {
-        return kanban.keySet();
+        return kanban;
     }
+    
     
 }

@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
  * @author abracchetti
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({fr.abi.epostit.serial.SerialMessageTest.class, fr.abi.epostit.serial.PostitSerialTest.class, fr.abi.epostit.serial.PostitSerialNotificationTest.class})
+@Suite.SuiteClasses({fr.abi.epostit.serial.SerialMessageTest.class, 
+    fr.abi.epostit.serial.PostitSerialTest.class})
 public class SerialSuite {
 
     @BeforeClass

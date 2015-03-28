@@ -80,7 +80,7 @@ public class SerialMessageTest {
         
         // run
         instance.buildMessage("<1:2,3;3:1,4;:4:5>");
-        Set<String> col = instance.getColumnsName();
+        Set<String> col = instance.getKanban().getColumnsName();
         
         assertTrue("La colonne 1 existe", col.contains("1"));
         assertFalse("La colonne 2 n'existe pas", col.contains("2"));
@@ -100,11 +100,11 @@ public class SerialMessageTest {
         
         // run
         instance.buildMessage("<1:2,3;3:1,4;:4:5>");
-        Set<String> col = instance.getColumnsName();
+        Set<String> col = instance.getKanban().getColumnsName();
         
         for(String colName : col)
         {
-            List<Integer> colContent = instance.getColumnContent(colName);
+            List<Integer> colContent = instance.getKanban().getColumnContent(colName);
             
             if (colName.equals("1"))
             {
@@ -126,8 +126,44 @@ public class SerialMessageTest {
             
             
         }
+    }
         
+    @Test
+    public void testMultipleInterpretationDuMessage_ContenuDesColonnes()
+    {
         
+        // init
+        SerialMessage instance = new SerialMessage();
+        
+        // run
+        instance.buildMessage("<1:3;3:1,4>");
+        instance.buildMessage("<1:2,3;3:1,4;:4:5>");
+        Set<String> col = instance.getKanban().getColumnsName();
+        
+        for(String colName : col)
+        {
+            List<Integer> colContent = instance.getKanban().getColumnContent(colName);
+            
+            if (colName.equals("1"))
+            {
+                assertEquals("La colonne 1 contient 2 élelments", 2, colContent.size());
+                assertThat("La colonne 1 contient le postit 2", 2, isIn(colContent));
+                assertThat("La colonne 1 contient le postit 3", 3, isIn(colContent));
+            }
+            else if(colName.equals("3")) 
+            {
+                assertEquals("La colonne 3 contient 2 élelments", 2, colContent.size());
+                assertThat("La colonne 3 contient le postit 1", 1, isIn(colContent));
+                assertThat("La colonne 3 contient le postit 4", 4, isIn(colContent));
+            }
+            else if(colName.equals("4")) 
+            {
+                assertEquals("La colonne 4 contient 1 élelments", 1, colContent.size());
+                assertThat("La colonne 4 contient le postit 5", 5, isIn(colContent));
+            }
+            
+            
+        }
     }
     
 }

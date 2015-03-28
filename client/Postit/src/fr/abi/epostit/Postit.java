@@ -27,13 +27,15 @@ public class Postit extends Application {
     public void start(Stage stage) throws Exception {
         
       
-              
-        Pane root = FXMLLoader.load(getClass().getResource("FXMLMain.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        Pane root = loader.load(getClass().getResource("FXMLMain.fxml"));
+        FXMLMainController controller = (FXMLMainController)loader.getController();
         
         
         
         Scene scene = new Scene(root);
         
+        //stage.setOnCloseRequest((e)->controller.close());
         stage.setScene(scene);
         stage.show();
     }

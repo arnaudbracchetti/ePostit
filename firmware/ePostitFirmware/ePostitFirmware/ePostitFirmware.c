@@ -24,9 +24,8 @@
 
 
 
-#define TX_PIN 1
-#define TX_PORT B
-#define NEXT_BIT 24 
+
+//#define NEXT_BIT 24 
 
 
 #include <avr/io.h>
@@ -35,11 +34,10 @@
 #include <avr/delay.h>
 
 
-
-PORT_ACCESS(TXPin,B,1)
-PORT_ACCESS(StartPin,A,0)
-PORT_ACCESS(StartPin555,A,1)
-
+// Configuration des ports de l'AVR
+PORT_ACCESS(TXPin,B,1)			// communication serie sur le port B1
+PORT_ACCESS(StartPin555,A,1)	// gachette du NE555 sur le port A1
+//PORT_ACCESS(StartPin,A,0)
 
 struct {
 	uint8_t index;
@@ -48,9 +46,7 @@ struct {
 
 void SoftUART_init()
 {
-	// configure la broche TX PORTB1
-	//DDRB |= 1<<DDB1; //PORTB1 en sortie
-	//PORTB |= _BV(PORTB1); // position le PORTB1 à l'état haut (valeur d'attente pour le TX)
+	// configure la broche TX pour la communication serie
 	set_TXPin_out();
 	set_TXPin_high();
 	
@@ -77,9 +73,9 @@ void SoftUART_send(char data)
 	for(int i=0; i<8; i++)
 	{
 		if ((data & 1) == 0)
-			PORTB &= ~_BV(PORTB1);
+			set_TXPin_low(); //PORTB &= ~_BV(PORTB1);
 		else
-			PORTB |= _BV(PORTB1);
+			set_TXPin_high(); //PORTB |= _BV(PORTB1);
 			
 		data >>= 1;
 		while ((TIFR0 & _BV(OCF0A))==0); //on attent le prochain cycle
@@ -126,7 +122,7 @@ ISR(EXT_INT0_vect)
 
 
 /*****************************************
-**  Mise en place du timer 2
+**  boucle principale
 ********************************************/  
 
 int main(void)
@@ -136,7 +132,7 @@ int main(void)
 	
 	TCCR1B = 0b00000101; //Prescal 8
 	
-	set_StartPin_out();
+	//set_StartPin_out();
 	set_StartPin555_out();
 	
 	/*initTimers();
@@ -158,15 +154,27 @@ int main(void)
 		
 		postitReaded.index = 0;
 		
-		set_StartPin_high();
+		// initialisation d'un cycle en activant la gachette du NE555
+		//set_StartPin_high();
 		set_StartPin555_low();
 		_delay_ms(1);
-		set_StartPin_low();
+		//set_StartPin_low();
 		set_StartPin555_high();
+		
+		// remise à zero du compteur de temps
 		cli();
 		TCNT1 = 0;
 		sei();
+		
+		// attente de la réponse des postits
 		_delay_ms(50);
+		
+		
+		
+		// generation du message à envoyer au sofware sur le port serie
+		
+		
+		// envoie du message sur le port serie
 		
 		/*SoftUART_printVal(postitReaded.result[0]>>2);
 		SoftUART_print("/");

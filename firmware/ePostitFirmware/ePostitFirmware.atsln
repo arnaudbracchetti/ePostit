@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ePostitFirmware", "ePostitFirmware\ePostitFirmware.cproj", "{A4D9EBE6-47AF-41D3-AFB5-7C34F844E988}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A4D9EBE6-47AF-41D3-AFB5-7C34F844E988}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A4D9EBE6-47AF-41D3-AFB5-7C34F844E988}.Debug|AVR.Build.0 = Debug|AVR
+		{A4D9EBE6-47AF-41D3-AFB5-7C34F844E988}.Release|AVR.ActiveCfg = Release|AVR
+		{A4D9EBE6-47AF-41D3-AFB5-7C34F844E988}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

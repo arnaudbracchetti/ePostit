@@ -7,7 +7,9 @@ package fr.abi.epostit;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 
 /**
@@ -17,6 +19,9 @@ import javafx.fxml.Initializable;
  */
 public class FXMLPostitController implements Initializable {
     public int a;
+    @FXML
+    private Label PostitNumber;
+    
     /**
      * Initializes the controller class.
      */
@@ -24,5 +29,10 @@ public class FXMLPostitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
          a=1;
     }    
+
+    void setPostitNumber(String num)
+    {
+        PostitNumber.setText(num);
+    }
     
 }

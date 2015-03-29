@@ -34,10 +34,14 @@
 #include <avr/delay.h>
 
 
+// configuration 
+#define MAX_COL 2				// nombre maximum de colonne dans le Kanban
+
 // Configuration des ports de l'AVR
 PORT_ACCESS(TXPin,B,1)			// communication serie sur le port B1
 PORT_ACCESS(StartPin555,A,1)	// gachette du NE555 sur le port A1
 //PORT_ACCESS(StartPin,A,0)
+
 
 struct {
 	uint8_t index;
@@ -116,8 +120,8 @@ void initPinChange()
 
 ISR(EXT_INT0_vect)
 {
-	
-	postitReaded.result[postitReaded.index++] = TCNT1;
+	//TODO protèger le dépassement du tableau
+	postitReaded.result[postitReaded.index++] = TCNT1>>2;  // >>2 pour diviser par 4 la valeur de TCNT
 }
 
 
@@ -152,35 +156,45 @@ int main(void)
 		PORTB ^= _BV(PORTB1);
 	   */
 		
-		postitReaded.index = 0;
+		// ouverture du message
+		SoftUART_print("<");
 		
-		// initialisation d'un cycle en activant la gachette du NE555
-		//set_StartPin_high();
-		set_StartPin555_low();
-		_delay_ms(1);
-		//set_StartPin_low();
-		set_StartPin555_high();
+		for (int i=1; i<=MAX_COL;i++ )
+		{
+			// Initialisation du traitement d'une nouvelle colonne
+			postitReaded.index = 0;
+			SoftUART_printVal(i);
+			SoftUART_print(":");
 		
-		// remise à zero du compteur de temps
-		cli();
-		TCNT1 = 0;
-		sei();
+			// initialisation d'un cycle en activant la gachette du NE555
+			set_StartPin555_low();
+			_delay_ms(1);
+			set_StartPin555_high();
 		
-		// attente de la réponse des postits
-		_delay_ms(50);
+			// remise à zero du compteur de temps
+			cli();
+			TCNT1 = 0;
+			sei();
+		
+			// attente de la réponse des postits
+			_delay_ms(50);
 		
 		
 		
-		// generation du message à envoyer au sofware sur le port serie
+			// generation du message à envoyer au sofware sur le port serie
+			for (int j=0;j<postitReaded.index;j++)
+			{
+				SoftUART_printVal(postitReaded.result[j]);
+				
+				if(j < postitReaded.index -1) // on ne place pas de virgule si c'est le dernier element 
+					SoftUART_print(",");
+			}
 		
+			if (i <= MAX_COL-1) // on ne place pas de point virgule si c'est le dernier element 
+				SoftUART_print(";");
+		}
 		
-		// envoie du message sur le port serie
+		SoftUART_print(">"); // fin du message
 		
-		/*SoftUART_printVal(postitReaded.result[0]>>2);
-		SoftUART_print("/");
-		SoftUART_printVal(postitReaded.result[1]>>2);
-		SoftUART_print(";");
-		*/
-	   SoftUART_print("<1:1,3,5;2:2,4>");
     }
 }

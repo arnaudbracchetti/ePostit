@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/client/Postit/test/fr/abi/epostit/serial/PostitSerialTest.java</file>
-            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/client/Postit/src/fr/abi/epostit/Postit.java</file>
-            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/client/Postit/test/fr/abi/epostit/serial/SerialMessageTest.java</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/FXMLMainController.java</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/serial/PostitSerial.java</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/Postit.java</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/FXMLPostitController.java</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/FXMLPostit.fxml</file>
+            <file>file:/C:/Users/Arnaud/Documents/NetBeansProjects/ePostit/software/Postit/src/fr/abi/epostit/serial/SerialMessage.java</file>
         </group>
     </open-files>
 </project-private>

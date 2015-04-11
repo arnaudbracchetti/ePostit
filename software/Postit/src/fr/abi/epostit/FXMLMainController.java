@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
@@ -59,17 +60,35 @@ public class FXMLMainController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+       
+        initializeMenu();
+        serial = new PostitSerial(this::fillKanban);
+        //serial.openPort(selectedPortName);
+
+        col[0] = Col1;
+        col[1] = col2;
+    }
+
+    private void initializeMenu()
+    {
         String[] ports = PostitSerial.getPorts();
         ToggleGroup group = new ToggleGroup();
         boolean isFirst = true;
+        
+        portMenu.getItems().clear();
+        
+        MenuItem menuItem = new MenuItem("Rafraichir les ports");
+        menuItem.setOnAction((e) -> initializeMenu());
+        portMenu.getItems().add(menuItem);
+        
         for (String port : ports)
         {
-            RadioMenuItem menuItem = new RadioMenuItem(port);
-            menuItem.setToggleGroup(group);
-            menuItem.setOnAction((e) -> HandleSelectedPortName(e));
-            portMenu.getItems().add(menuItem);
+            RadioMenuItem radioMenuItem = new RadioMenuItem(port);
+            radioMenuItem.setToggleGroup(group);
+            radioMenuItem.setOnAction((e) -> HandleSelectedPortName(e));
+            portMenu.getItems().add(radioMenuItem);
 
-            if (isFirst)
+            /*if (isFirst)
             {
                 menuItem.selectedProperty().set(true);
                 selectedPortName = port;
@@ -78,16 +97,10 @@ public class FXMLMainController implements Initializable
             else
             {
                 menuItem.selectedProperty().set(false);
-            }
-        }
-
-        serial = new PostitSerial(this::fillKanban);
-        //serial.openPort(selectedPortName);
-
-        col[0] = Col1;
-        col[1] = col2;
+            }*/
+        } 
     }
-
+    
     private void HandleSelectedPortName(ActionEvent e)
     {
         RadioMenuItem menuItem = (RadioMenuItem) e.getSource();

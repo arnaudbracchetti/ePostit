@@ -31,7 +31,7 @@ public class InternalKanban {
     public void addPostit(String col, Integer postitId)
     {
         if(!kanban.containsKey(col))
-            kanban.put(col, new ArrayList<Integer>());
+            initEmptyColumn(col);
         
         kanban.get(col).add(postitId);
     }
@@ -39,6 +39,11 @@ public class InternalKanban {
     public void clear()
     {
         kanban.clear();
+    }
+
+    void initEmptyColumn(String colName)
+    {
+       kanban.put(colName, new ArrayList<Integer>());
     }
     
 }

@@ -79,7 +79,7 @@ public class SerialMessageTest {
         SerialMessage instance = new SerialMessage();
         
         // run
-        instance.buildMessage("<1:2,3;3:1,4;:4:5>");
+        instance.buildMessage("<1:2,3;3:1,4;4:>");
         Set<String> col = instance.getKanban().getColumnsName();
         
         assertTrue("La colonne 1 existe", col.contains("1"));
@@ -99,7 +99,7 @@ public class SerialMessageTest {
         SerialMessage instance = new SerialMessage();
         
         // run
-        instance.buildMessage("<1:2,3;3:1,4;:4:5>");
+        instance.buildMessage("<1:2,3;3:1,4;:4:5;5:;6:>");
         Set<String> col = instance.getKanban().getColumnsName();
         
         for(String colName : col)
@@ -122,6 +122,10 @@ public class SerialMessageTest {
             {
                 assertEquals("La colonne 4 contient 1 élelments", 1, colContent.size());
                 assertThat("La colonne 4 contient le postit 5", 5, isIn(colContent));
+            }
+            else if(colName.equals("5")||colName.equals("6")) 
+            {
+                assertEquals("La colonne 5 ou 6 contient 0 élelments", 0, colContent.size());
             }
             
             

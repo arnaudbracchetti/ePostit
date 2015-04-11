@@ -101,6 +101,7 @@ public class SerialMessage {
             String colName = matcher.group(1);
             String colContentStr = matcher.group(2);
             Matcher matcherColContent = ColumncontentPattern.matcher(colContentStr);
+            kanban.initEmptyColumn(colName); 
             
             while(matcherColContent.find())
             {

@@ -6,6 +6,7 @@
 package fr.abi.epostit.serial;
 
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortException;
@@ -82,7 +83,8 @@ public class PostitSerial
 
     public static String[] getPorts()
     {
-        return SerialPortList.getPortNames();
+        Pattern p = Pattern.compile("tty.(SLAB_USBtoUART|serial|usbserial|usbmodem).*");
+        return SerialPortList.getPortNames(p);
     }
 
     /**

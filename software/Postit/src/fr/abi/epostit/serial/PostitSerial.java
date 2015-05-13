@@ -7,6 +7,7 @@ package fr.abi.epostit.serial;
 
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
+import jssc.SerialNativeInterface;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortException;
@@ -83,8 +84,17 @@ public class PostitSerial
 
     public static String[] getPorts()
     {
-        Pattern p = Pattern.compile("tty.(SLAB_USBtoUART|serial|usbserial|usbmodem).*");
-        return SerialPortList.getPortNames(p);
+        if (SerialNativeInterface.getOsType() == SerialNativeInterface.OS_MAC_OS_X)
+        {    
+            // prise ne compte du nom particulier du port serie virtuel avec le driver 
+            // Mac OS X de la CP2102 USBtoUART
+            Pattern p = Pattern.compile("tty.(SLAB_USBtoUART|serial|usbserial|usbmodem).*");
+            return SerialPortList.getPortNames(p);
+        }
+        else
+        {
+            return SerialPortList.getPortNames();
+        }
     }
 
     /**

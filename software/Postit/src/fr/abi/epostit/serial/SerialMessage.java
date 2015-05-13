@@ -5,11 +5,6 @@
  */
 package fr.abi.epostit.serial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,13 +44,20 @@ public class SerialMessage {
      */
     public boolean buildMessage(String msgPart)
     {
-        tempMsg.append(msgPart);
-        
-        String msg = getCompleteMsg();
-        if (!msg.isEmpty())
+        if (msgPart != null)
         {
-            interpretMsg(msg);
-            return true;
+            tempMsg.append(msgPart);
+
+            String msg = getCompleteMsg();
+            if (!msg.isEmpty())
+            {
+                interpretMsg(msg);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -100,12 +102,14 @@ public class SerialMessage {
         
         Matcher matcher = ColumnPattern.matcher(msg);
         kanban.clear();
+        System.out.println(msg);
         
         while(matcher.find())
         {
             String colName = matcher.group(1);
             String colContentStr = matcher.group(2);
             Matcher matcherColContent = ColumncontentPattern.matcher(colContentStr);
+            kanban.initEmptyColumn(colName); 
             
             while(matcherColContent.find())
             {

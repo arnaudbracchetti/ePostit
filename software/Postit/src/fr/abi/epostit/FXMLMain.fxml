@@ -11,7 +11,7 @@
    <center>
       <HBox prefHeight="100.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="Col1" alignment="TOP_CENTER" prefWidth="200.0" spacing="5.0" style="-fx-border-color: 0; -fx-border-style: solid; -fx-border-width: 1;">
+            <VBox fx:id="Col1" alignment="TOP_CENTER" prefWidth="500.0" spacing="5.0" style="-fx-border-color: 0; -fx-border-style: solid; -fx-border-width: 1;">
                <children>
                   <Label text="Colonne 1" />
                </children>
@@ -19,7 +19,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <VBox fx:id="col2" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: 0; -fx-border-style: solid;">
+            <VBox fx:id="col2" alignment="TOP_CENTER" prefWidth="500.0" spacing="5.0" style="-fx-border-color: 0; -fx-border-style: solid;">
                <children>
                   <Label text="Colonne 2" />
                </children>

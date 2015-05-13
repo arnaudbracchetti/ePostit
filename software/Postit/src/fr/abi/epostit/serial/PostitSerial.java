@@ -35,7 +35,7 @@ public class PostitSerial
      * est positionné comme listener des données reçues sur le port.
      *
      * Paramètres utilisées pour l'ouverture du port : - 9600 baud - 8 bits de
-     * données - 1 bit de stop - pas de partité
+     * données - 2 bits de stop - pas de partité
      *
      * @throws jssc.SerialPortException
      */
@@ -47,7 +47,7 @@ public class PostitSerial
 
             sPort = new SerialPort(portName);
             sPort.openPort();
-            sPort.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+            sPort.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_2, SerialPort.PARITY_NONE);
             sPort.addEventListener((e) ->
             {
                 this.postitSerialEventHandler(e);

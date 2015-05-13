@@ -44,13 +44,20 @@ public class SerialMessage {
      */
     public boolean buildMessage(String msgPart)
     {
-        tempMsg.append(msgPart);
-        
-        String msg = getCompleteMsg();
-        if (!msg.isEmpty())
+        if (msgPart != null)
         {
-            interpretMsg(msg);
-            return true;
+            tempMsg.append(msgPart);
+
+            String msg = getCompleteMsg();
+            if (!msg.isEmpty())
+            {
+                interpretMsg(msg);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -95,6 +102,7 @@ public class SerialMessage {
         
         Matcher matcher = ColumnPattern.matcher(msg);
         kanban.clear();
+        System.out.println(msg);
         
         while(matcher.find())
         {
